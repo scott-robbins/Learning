@@ -22,7 +22,7 @@ int main(int argc, char *argv[])
   serverAddr.sin_family = AF_INET;
   /* Set port number, using htons function to use proper byte order */
   serverAddr.sin_port = htons(atoi(argv[2]));
-  /* Set IP address to localhost */
+  /* Set IP address for server socket connection endpoint */
   serverAddr.sin_addr.s_addr = inet_addr(argv[1]);
   /* Set all bits of the padding field to 0 */
   memset(serverAddr.sin_zero, '\0', sizeof serverAddr.sin_zero);  
