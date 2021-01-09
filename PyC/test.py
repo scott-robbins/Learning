@@ -8,15 +8,19 @@ elif os.name == 'nt': # on windows
 	lib = cdll.LoadLibrary("lib.dll")
 
 lib.test_print()
+lib.cprint("Hey C, It's Python!")
 print(lib.add(1, 2))
 
-# Calling function with a structure 
+
+# Calling function with a structure
+# fields are defined by tuple with (fieldname, c_type) 
 class PyStruct(Structure):
-	# fields are defined by tuple with (fieldname, c_type)
-	__fields__ = [("str",c_char_p),
+	_fields_ = [("str",c_char_p),
 				  ("num",c_int)]
+
 
 p = PyStruct()
 p.str = "This is a test"
 p.num = 42
+# This isnt printing right.
 lib.show_struct(byref(p))

@@ -14,6 +14,14 @@ int add(int a, int b){
 	return a + b;
 }
 
+void cprint(const char* str){
+	printf("%s\n", str);
+}
+
+void print_unicode(const wchar_t* ustr){
+	printf("%ls\n", ustr);
+}
+
 /* define a structure that will be passed from python */
 struct PyStruct {
 	const char* str;
