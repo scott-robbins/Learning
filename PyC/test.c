@@ -123,6 +123,41 @@ void bit_xor(const unsigned char *bitsIn1,
 	return;
 }
 
+void bit_and(const unsigned char *bitsIn1,
+             const unsigned char *bitsIn2,
+             unsigned char *bitsxIn, int size){
+    // allocate memory and copy over what was given
+    int len1 = sizeof(bitsIn1);
+    assert(len1 >= 0);
+    unsigned char *bits1 = malloc(len1);
+    if (bits1 == NULL) { abort(); }
+    memcpy(&bits1, &bitsIn1, len1);
+
+    int len2 = sizeof(bitsIn1);
+    assert(len2 >= 0);
+    unsigned char *bits2 = malloc(len2);
+    if (bits2 == NULL) { abort(); }
+    memcpy(&bits2, &bitsIn2, len2);
+
+    int len3 = sizeof(bitsxIn);
+    assert(len3 >= 0);
+    unsigned char *bitsx = malloc(len3);
+    if (bitsx == NULL) { abort(); }
+    memcpy(&bitsx, &bitsxIn, len3);
+
+    int		i;
+	// compute the bitwise AND of the the buffers given
+	for (i = 0; i < size; i++){
+		//compare each bit of each buffer, applying AND
+		if ((bit_get(bits1, i) & bit_get(bits2, i)))
+			bit_set(bitsx, i, 1);
+		else // set zero if both arent 1
+			bit_set(bitsx, i, 0);
+	}
+
+	return;
+}
+
 void bit_rot_left(unsigned char *bitsIn, int size, int count) {
     // allocate memory and copy over what was given
     int len = sizeof(bitsIn);
