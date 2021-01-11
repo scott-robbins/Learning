@@ -193,6 +193,9 @@ void bit_or(const unsigned char *bitsIn1,
 	return;	
 }
 
+
+
+
 void bit_rot_left(unsigned char *bitsIn, int size, int count) {
     // allocate memory and copy over what was given
     int len = sizeof(bitsIn);
@@ -226,3 +229,4 @@ void bit_rot_left(unsigned char *bitsIn, int size, int count) {
 	}
 	return;
 }
+

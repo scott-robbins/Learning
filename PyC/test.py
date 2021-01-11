@@ -36,7 +36,7 @@ p.num = 42
 lib.show_struct(byref(p))
 
 # Now try the bit operations
-buffer_a = chr(128)
+buffer_a = chr(75)
 buffer_b = chr(42)
 
 show_bytes(buffer_a, 'A')
