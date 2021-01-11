@@ -10,7 +10,8 @@ int main(int argc, char *argv[]){
 	if (remove(argv[1]) == 0){
 		return 1;
 	} else{
-		return 1;
+		printf("Unable to delete %s\n", argv[1]);
+		return 0;
 	}
 
 }
