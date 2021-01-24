@@ -28,7 +28,7 @@ int main(void)
      while (s)
      {
           printf("[%lu]\t%s (%p)\n", i, s, (void *)s);
-          sleep(3);
+          sleep(1.5);
           i++;
      }
      return (EXIT_SUCCESS);

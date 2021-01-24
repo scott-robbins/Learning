@@ -1,3 +1,8 @@
+'''
+This program overwrites a variable of another program by finding the location in 
+memory using linux /proc filesystem. Based on reading awesome article at:
+https://blog.holbertonschool.com/hack-the-virtual-memory-c-strings-proc/
+'''
 from threading import Thread
 import time
 import sys 
