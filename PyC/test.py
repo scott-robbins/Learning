@@ -9,11 +9,11 @@ elif os.name == 'nt': # on windows
     lib = cdll.LoadLibrary("lib.dll")
 
 
-def show_bytes(buffer, label):
+def show_bytes(buff, label):
     bytestr = ''
-    data_size = lib.get_size(buffer_b)
+    data_size = lib.get_size(buff)
     for i in range(data_size):
-        bytestr += str(lib.bit_get(buffer, i))
+        bytestr += str(lib.bit_get(buff, i))
     print('%s\t%s' % (bytestr, label))
     return bytestr
 
@@ -22,12 +22,10 @@ lib.test_print()
 lib.cprint("Hey C, It's Python!")
 print(lib.add(1, 2))
 
-
 # Calling function with a structure
 # fields are defined by tuple with (fieldname, c_type)
 class PyStruct(Structure):
     _fields_ = [("str",c_char_p),  ("num",c_int)]
-
 
 p = PyStruct()
 p.str = "This is a test"
@@ -36,8 +34,8 @@ p.num = 42
 lib.show_struct(byref(p))
 
 # Now try the bit operations
-buffer_a = chr(75)
-buffer_b = chr(42)
+buffer_a = chr(ord('\x41'))
+buffer_b = chr(ord('\x42'))
 
 show_bytes(buffer_a, 'A')
 show_bytes(buffer_b, 'B')
