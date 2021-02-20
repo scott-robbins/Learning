@@ -7,4 +7,4 @@ Because the user defines the size of the array though, we could allocate more me
 
 Using `malloc` to allocate memory for our dynamically sized array, and `free` to give it back when finished, no more faults :D
 
-   
+![ex](https://raw.githubusercontent.com/0ptik41/Learning/master/Memory/ex.png)   
