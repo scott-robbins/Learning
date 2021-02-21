@@ -75,6 +75,11 @@ struct fb_var_screeninfo {
 };
 ```
 
+### Framebuffer Resolution 
+Frame buffer resolution is modified using fbset. According to linux documentation "Its main usage is to change the current video mode, e.g. during boot up in one of your /etc/rc.* or /etc/init.d/* files."
+
+Fbset uses a video mode database stored in a configuration file, so you can easily add your own modes and refer to them with a simple identifier.
+
 ### Framebuffer Format
 According to the Linux API the format of framebuffer image data is changed when programs "set the fb_var_screeninfo bits_per_pixel field to the desired frame buffer depth. Values up to 8 will usually map to monochrome, grayscale or pseudocolor visuals, although this is not required."[1]
 
@@ -96,7 +101,19 @@ Some notes on how these fields actually affect the framebuffer according to kern
 *	For truecolor and directcolor formats, applications set the grayscale 
 	field to zero, and the red, blue, green and transp fields to describe the layout of color components in memory:
 
-______________________________________________________________________________
+*	Location and size of each component in the pixel value are described by 	the fb_bitfield offset and length fields. Offset are computed from the 		right.
+
+*	Pixels are always stored in an integer number of bytes. If the number of 	 bits per pixel is not a multiple of 8, pixel values are padded to the next 	multiple of 8 bits.
+
+### Display Layout and Timings
+
+
+
+# Digging In
+That's a lot of information. For me, it doesn't necessarily mean anything unless I can use it for myself somehow. So can I write a program to take screenshots in C for example?
+
+_______________________________________________________________________
 ### Sources:
 
 	[1] https://www.kernel.org/doc/html/latest/fb/api.html
+	[2] https://www.kernel.org/doc/html/latest/fb/framebuffer.html#frame-buffer-resolution-maintenance
