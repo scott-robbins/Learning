@@ -11,12 +11,18 @@ int main(int argc, char* argv[]){
 	// create array based on size of input
 	a = atoi(argv[1]);
 	b = atoi(argv[2]);
-
-	printf("Creating (%d, %d) array\n", a, b);
-	int (* dynamic)[b] = malloc(sizeof(int[a][b]));
+	
+	printf("Creating [%d, %d] array\n", a, b);
+	int (* dynamic)[a] = malloc(sizeof(int[a][b]));
 	int i, j;
-	for (i=0;i<a;i++)
-		for(j=0;j<b;j++)
-			dynamic[i][j] = i*j;
+	int k = 1;
+	for (i=0;i<a;i++){
+		for(j=0;j<b;j++){
+			dynamic[i][j] = k;
+			k = k + 1;
+			printf("0x%03x ", dynamic[i][j]);
+		}
+		printf("\n");
+	}
 	free(dynamic);
 }

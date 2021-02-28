@@ -33,14 +33,7 @@ void fatal_error(char *message){
 }
 
 static void showFramebufferInfo(char *device, struct fb_var_screeninfo *fb_varinfo_p, struct fb_fix_screeninfo *fb_fixedinfo){
-	int fd;	
-	// open framebuffer device 
-	if (-1 == (fd = open(device, O_RDONLY))){ fatal_error("[!] Cannot open /dev/fb0\n"); }
-    
-    // Fill Structs with framebuffer info using ioctl call defined by kernel
-    if (ioctl(fd, FBIOGET_VSCREENINFO, fb_varinfo_p) != 0){ fatal_error("ioctl FBIOGET_VSCREENINFO");}
-    if (ioctl(fd, FBIOGET_VSCREENINFO, fb_varinfo_p) != 0){ fatal_error("ioctl FBIOGET_VSCREENINFO");}
-
+	
     // show pixel format type 
     printf("[*] Framebuffer Information:\n");
     switch (fb_fixedinfo->type){
@@ -64,7 +57,7 @@ static void showFramebufferInfo(char *device, struct fb_var_screeninfo *fb_varin
 	    	break;
     	}
     	// Get Framebuffer Detailed information
-        printf("- line length: %i bytes (%i pixels)\n", fb_fixedinfo->line_length, fb_fixedinfo->line_length/(fb_varinfo_p->bits_per_pixel/8));
+        printf("- line length: %i bytes (%i pixels)\n", fb_fixedinfo->mmio_len, fb_fixedinfo->line_length/(fb_varinfo_p->bits_per_pixel/8));
         printf("- resolution: %ix%i\n", fb_varinfo_p->xres, fb_varinfo_p->yres);
         printf("- virtual resolution: %ix%i\n", fb_varinfo_p->xres_virtual, fb_varinfo_p->yres_virtual);
         printf("- offset: %ix%i\n", fb_varinfo_p->xoffset, fb_varinfo_p->yoffset);
@@ -89,17 +82,17 @@ void mysterious_bit_twiddles(struct fb_var_screeninfo *fb_varinfo_p){
 	}
 }
 
-
 int main(int argc, char const *argv[]){
+	char const *screencapfile;
 	// check for arguments 
 	if (argc >= 1 && (strcmp(argv[1],"-v")==0)){
 		VERBOSE = 1;
 	}
 
 	if (argc >= 2 && (strcmp(argv[1], "-o")==0)){
-		char const *screencapfile = argv[2];
+		screencapfile = argv[2];
 	} else{
-		char const *screencapfile = "screenshot.png";
+		screencapfile = "screenshot.png";
 	}
 
 	// Check if we have permission to access the frame buffer 
@@ -114,17 +107,26 @@ int main(int argc, char const *argv[]){
 	int width, height, bitdepth, line_length, skip_bytes;
 	memset(&fb_varinfo, 0, sizeof(struct fb_var_screeninfo));
     memset(&fb_fixedinfo, 0, sizeof(struct fb_fix_screeninfo));
-
+    int fd;	
+	// open framebuffer device 
+	if (-1 == (fd = open(dev, O_RDONLY))){ fatal_error("[!] Cannot open /dev/fb0\n"); }
+    
+    // Fill Structs with framebuffer info using ioctl call defined by kernel
+    if (ioctl(fd, FBIOGET_VSCREENINFO, &fb_varinfo) != 0){ fatal_error("ioctl FBIOGET_VSCREENINFO");}
+    if (ioctl(fd, FBIOGET_VSCREENINFO, &fb_varinfo) != 0){ fatal_error("ioctl FBIOGET_VSCREENINFO");}
+    
     // If verbose show framebuffer information 
     if (VERBOSE == 1){showFramebufferInfo(dev, &fb_varinfo, &fb_fixedinfo);}
+    
     // Not fully sure what these bit twiddles do, something with mapping colors
 	// but its in the bits of code I'm working off of 
 	mysterious_bit_twiddles(&fb_varinfo);
+	
 	// load dimensions of screen, bitdepth and line length
 	bitdepth = (int) fb_varinfo.bits_per_pixel;
     width = (int) fb_varinfo.xres;
     height = (int) fb_varinfo.yres;
-    line_length = (int) fb_fixedinfo.line_length/(fb_varinfo.bits_per_pixel>>3);
+    line_length = (int) fb_fixedinfo.line_length;
     
     // I think this is calculating unused bits after shifting for R/G/B
     skip_bytes =  (fb_varinfo.yoffset * fb_varinfo.xres) * (fb_varinfo.bits_per_pixel >> 3);
@@ -154,8 +156,19 @@ int main(int argc, char const *argv[]){
 	size_t imagebuffer = (size_t) line_length * height * 4;
 	unsigned char *imageoutbuff = (unsigned char*) malloc(buf_size);
 	memset(imageoutbuff, 0, buf_size);
+	printf("[*] Converting Image to %ibit\n", bitdepth);
+	
 
-	printf("[*] Converting Image to %d bits\n", bitdepth);
+	FILE *log = fopen("testdata.txt","w");
+
+	int i,j;
+	int imageSize = width * height;
+	for (i=1;i < 100; height++){
+		int idx = (i-1)*4;
+		fprintf(log, "%p\n", im[idx]);
+		
+	}
+
 
 	// Dump Data to a file 
 
@@ -169,6 +182,7 @@ int main(int argc, char const *argv[]){
 
 	// Free Memory when Finished!
 	free(buf_p);
+	free(imageoutbuff);
 	close(scfp);
 	return 0; // All was good, return 0
 }

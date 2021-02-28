@@ -15,8 +15,13 @@ int main(int argc, char* argv[]){
 	printf("Creating (%d, %d) array\n", a, b);
 	int dynamic[a][b];
 	int i, j;
-	for (i=0;i<a;i++)
-		for(j=0;j<b;j++)
-			dynamic[i][j] = i*j;
-	
+	int k = 1;
+	for (i=0;i<a;i++){
+		for(j=0;j<b;j++){
+			dynamic[i][j] = k;
+			printf("0x%03x ", dynamic[i][j]);
+			k = k+1;
+		}
+		printf("\n");
+	}
 }
