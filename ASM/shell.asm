@@ -3,7 +3,7 @@
 ; define variables
 section .data	
 cmd		db	'/bin/sh', 0x00
-args	dd 	cmd	   ; command
+args	dd 	cmd	   			; command
 env		dd	0h	   ; env args (empty)
 
 section .text
