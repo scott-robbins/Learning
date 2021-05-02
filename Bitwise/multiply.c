@@ -13,9 +13,9 @@ int main(int argc, char* argv[]){
 	int result = a * b;
 	printf("%d x %d = %d\n", a, b, result);
 
-	 // Use bitwise right shift to divide number by power of 2
+	// Use bitwise right shift to divide number by power of 2
     printf("%d / (2^1) = %d\n",a, (a >> 1));
-   // Use bitwise left shift to multiply  number by power of 2
+    // Use bitwise left shift to multiply  number by power of 2
     printf("12 * (2^1) = %d\n", (a << 1));
     // Check even odd
     if (b & 1)
@@ -40,24 +40,6 @@ int main(int argc, char* argv[]){
 
     // Print flag value 
     printf("flag, DECIMAL = %d, HEX = %x\n\n", flag, flag);
-
-    // Check if married
-    if(flag & 1)
-        printf("You are married.\n");
-    else
-        printf("You are not married.\n");
-
-    // Check voting eligibility
-    if(flag & 2)
-        printf("You are eligible for voting.\n");
-    else
-        printf("You are not eligible for voting.\n");
-
-    // Check VISA status
-    if(flag & 4)        
-        printf("You are eligible to get VISA.\n");
-    else
-        printf("You are not eligible to get VISA.\n");
 
 
     // Unset or set all flags to false.
