@@ -23,40 +23,9 @@ int main(int argc, char* argv[]){
     else
         printf("%d is an EVEN number.\n", b);
 
-    // Make all bits off.
-    unsigned char flag = 0;
-
-    // Set marital status YES, i.e. 0th bit 1
-    // (flag => 0000 0001 = 1)
-    flag = flag | 1;
-
-    // Set voting status YES, i.e. 1st bit 1 
-    // (flag => 0000 0011 = 3)
-    flag = flag | 2;
-
-    // Set VISA eligibility status YES, i.e. 2nd bit 1
-    // (flag => 0000 0111 = 7)
-    flag = flag | 4;    
-
-    // Print flag value 
-    printf("flag, DECIMAL = %d, HEX = %x\n\n", flag, flag);
-
-
-    // Unset or set all flags to false.
-    flag = flag & (~(1 << 0));
-    flag = flag & (~(1 << 1));
-    flag = flag & (~(1 << 2));
-
-    // Print flag value
-    printf("\nflag, DECIMAL = %d, HEX = %x\n", flag, flag);
-
-     // Convert to lowercase
+    // Convert to lowercase
     printf("Bitwise Lower:  'a' => '%c'\n", ('a' | ' '));
     printf("Bitwise Lower: 'A' => '%c'\n", ('A' | ' '));
-
-    // Convert to uppercase
-    printf("Bitwise Upper: 'a' => '%c'\n", ('a' & '_'));
-    printf("Bitwise Upper: 'A' => '%c'\n", ('a' & '_'));
 
     int min = (b ^ (a ^ b) & -(a < b));
     int max = (a ^ (a ^ b) & -(a < b));
