@@ -14,7 +14,7 @@ uint32_t crc32(const char* s){
         crc = crc ^ byte;    // crc XOR with current byte
         for (uint8_t j = 8; j > 0; --j) //magic?
             crc = (crc >> 1) ^ (0xEDB88320 & (-(crc & 1)));
-        i++;
+	i++;
     }
     return crc ^ 0xffffffff;
 }

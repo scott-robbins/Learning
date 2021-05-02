@@ -41,7 +41,8 @@ def main():
 
 	if '-snap' in sys.argv:
 		arr = get_image(camera)
-		plt.imshow(arr); plt.show()
+		a = arr - np.mean(arr)
+		plt.imshow(a); plt.show()
 
 if __name__ == '__main__':
 	main()
