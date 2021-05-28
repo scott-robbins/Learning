@@ -3,8 +3,7 @@ section	.text
 	
 _start:	                ;tell linker entry point
    call    display
-   mov	eax,1	        ;system call number (sys_exit)
-   int	0x80	        ;call kernel
+   call    exit
 	
 display:
    mov    ecx, 256
@@ -17,10 +16,16 @@ next:
    int     0x80
 	
    mov	dx, [achar]
-   cmp	byte [achar], 0dh
+   cmp	dx, 0x7e 
+   jg   exit
    inc	byte [achar]
-   ;loop    next
+   loop    next
    ret
+
+exit:
+   mov  eax,1
+   int  0x80
+
 	
 section .data
 achar db '0'
