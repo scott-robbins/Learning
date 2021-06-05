@@ -21,6 +21,7 @@ void usage(char* s){
 }
 
 
+
 ////// Main Function //////
 int main(int argc, char** argv){
 	// Get Name of file to load into GPU 
@@ -44,4 +45,6 @@ int main(int argc, char** argv){
 	printf('\t-Image Size: %d\n', imageSize);
 	printf('\t-Dimensions: [%d x %d]\n', width, height);
 	return 0;
+
+
 }

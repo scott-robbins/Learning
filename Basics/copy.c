@@ -38,7 +38,6 @@ int main(int argc, char *argv[])
 	}
 	// Make sure the file doesnt already exist first!
 	if(!fileExists(argv[2]) && fileExists(argv[1])){
-
    		char buf[CHUNK];
 		FILE *file;
 		FILE *fcopy;

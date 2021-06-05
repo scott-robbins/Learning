@@ -11,7 +11,6 @@
 unsigned char buffer4[4];
 unsigned char buffer2[2];
 
-char* seconds_to_time(float seconds);
 
 
  FILE *ptr;
@@ -54,7 +53,6 @@ int main(int argc, char **argv) {
  int read = 0;
  
  // read header parts
-
  read = fread(header.riff, sizeof(header.riff), 1, ptr);
  printf("(1-4): %s \n", header.riff); 
 
@@ -160,7 +158,6 @@ int main(int argc, char **argv) {
  // calculate duration of file
  float duration_in_seconds = (float) header.overall_size / header.byterate;
  printf("Approx.Duration in seconds=%f\n", duration_in_seconds);
- printf("Approx.Duration in h:m:s=%s\n", seconds_to_time(duration_in_seconds));
 
 
 
@@ -262,36 +259,4 @@ int main(int argc, char **argv) {
 
 }
 
-/**
- * Convert seconds into hh:mm:ss format
- * Params:
- *	seconds - seconds value
- * Returns: hms - formatted string
- **/
- char* seconds_to_time(float raw_seconds) {
-  char *hms;
-  int hours, hours_residue, minutes, seconds, milliseconds;
-  hms = (char*) malloc(100);
-
-  sprintf(hms, "%f", raw_seconds);
-
-  hours = (int) raw_seconds/3600;
-  hours_residue = (int) raw_seconds % 3600;
-  minutes = hours_residue/60;
-  seconds = hours_residue % 60;
-  milliseconds = 0;
-
-  // get the decimal part of raw_seconds to get milliseconds
-  char *pos;
-  pos = strchr(hms, '.');
-  int ipos = (int) (pos - hms);
-  char decimalpart[15];
-  memset(decimalpart, ' ', sizeof(decimalpart));
-  strncpy(decimalpart, &hms[ipos+1], 3);
-  milliseconds = atoi(decimalpart);	
-
-  
-  sprintf(hms, "%d:%d:%d.%d", hours, minutes, seconds, milliseconds);
-  return hms;
-}
 
