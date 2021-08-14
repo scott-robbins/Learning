@@ -8,9 +8,12 @@ This is a repository where I put various snippets of code, and various mini proj
 * ![Bitwise Operations](https://github.com/scott-robbins/Learning/tree/main/Bitwise)
 * ![Data Structures](https://github.com/scott-robbins/Learning/tree/main/DataStructures)
 * ![File Formats](https://github.com/scott-robbins/Learning/tree/main/Formats)
+* ![Graphics](https://github.com/scott-robbins/Learning/tree/main/Graphics)
 * ![GUIs](https://github.com/scott-robbins/Learning/tree/main/GUIs)
 * ![Images](https://github.com/scott-robbins/Learning/tree/main/Images)
 * ![Memory](https://github.com/scott-robbins/Learning/tree/main/Memory)
-* ![Various Topics](https://github.com/scott-robbins/Learning/tree/main/Misc)
+* ![Misc.](https://github.com/scott-robbins/Learning/tree/main/Misc)
 * ![Networking](https://github.com/scott-robbins/Learning/tree/main/Networking)
 * ![Python/C Combinations](https://github.com/scott-robbins/Learning/tree/main/PyC)
+* ![System](https://github.com/scott-robbins/Learning/tree/main/System)
+
