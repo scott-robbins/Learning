@@ -1,6 +1,16 @@
-# System Programming 
+# Learning
+This is a repository where I put various snippets of code, and various mini projects that help demonstate a basic component of computer science. 
 
-
-
-## Resources 
-* http://www.compsci.hunter.cuny.edu/~sweiss/course_materials/unix_lecture_notes/chapter_01.pdf
+## Topics
+* ![Assembly Language](https://github.com/scott-robbins/Learning/tree/main/ASM)
+* ![Audio](https://github.com/scott-robbins/Learning/tree/main/Audio)
+* ![Basic Operations](https://github.com/scott-robbins/Learning/tree/main/Basics)
+* ![Bitwise Operations](https://github.com/scott-robbins/Learning/tree/main/Bitwise)
+* ![Data Structures](https://github.com/scott-robbins/Learning/tree/main/DataStructures)
+* ![File Formats](https://github.com/scott-robbins/Learning/tree/main/Formats)
+* ![GUIs](https://github.com/scott-robbins/Learning/tree/main/GUIs)
+* ![Images](https://github.com/scott-robbins/Learning/tree/main/Images)
+* ![Memory](https://github.com/scott-robbins/Learning/tree/main/Memory)
+* ![Various Topics](https://github.com/scott-robbins/Learning/tree/main/Misc)
+* ![Networking](https://github.com/scott-robbins/Learning/tree/main/Networking)
+* ![Python/C Combinations](https://github.com/scott-robbins/Learning/tree/main/PyC)
