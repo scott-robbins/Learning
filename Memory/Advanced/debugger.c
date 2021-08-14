@@ -9,6 +9,18 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 
+# define E 1337
+# define CONT 852
+# define SHOW 292
+# define QUIT 386
+
+/* method for creating unique indexes of items */
+int hash(char key[]){
+	unsigned int code = 0;
+	for(int i=0; key[i] != '\0'; i++)
+		code = key[i] + (code << 6) + (code << 16) - code;
+	return code % E;
+}
 
 void execute(const char * p){
 	 /* Allow tracing of this process */
@@ -33,6 +45,11 @@ void show_registers(int pid){
 	printf("CS:\t0x%08llx\n", regs.cs);
 }
 
+
+void showInstructions(){
+	printf("Unrecognized instruction\n");
+	printf("options: [cont, show, quit]\n");
+}
 
 int main(int argc, char const *argv[]){
 	if (argc < 2){
@@ -76,30 +93,32 @@ int main(int argc, char const *argv[]){
 	    wait(&wait_status);
 
 	    while (WIFSTOPPED(wait_status)) {
+	    	// Get the user's next action
 	    	char options[256];
-	        
 	        printf("[>]");
-	    	scanf("%s", options);
-	        if (strcmp(options, "cont")==0){	
-				/* Make the child execute another instruction */
-		        if (ptrace(PTRACE_SINGLESTEP, pid, 0, 0) < 0) {
-		            perror("ptrace");
-		            return -1;
-		        }
-		        /* Wait for child to stop on its next instruction */
-	        	wait(&wait_status);
-			}
-			if (strcmp(options, "show")==0){
-				show_registers(pid);
-			}
-			if (strcmp(options, "quit")==0){
-				ptrace(PTRACE_SETOPTIONS, pid, 0, PTRACE_O_EXITKILL);
-				break;
-			}
+	    	scanf("%s\n", options);
 
+	    	// hash their input to figure out which case the command falls into
+	    	int selection = hash(options);
+	    	switch(selection){
+	    		case CONT:
+	    			if (ptrace(PTRACE_SINGLESTEP, pid, 0, 0) < 0) {
+			            perror("ptrace");
+			            return -1;
+			        }
+			        break;
+		        case SHOW:
+		        	show_registers(pid);
+		        	break;
+		        case QUIT:
+		        	wait(&wait_status);
+		        	ptrace(PTRACE_SETOPTIONS, pid, 0, PTRACE_O_EXITKILL);
+		        	break;	
+		        default:
+		        	showInstructions();
+		        	return 0;
+	    	}
 			steps++;
-
-	        
 		}
 	}
 	printf("[*] Finished. [%d instructions traced]\n", steps);
