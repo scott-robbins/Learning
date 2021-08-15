@@ -18,12 +18,15 @@ def start_listening(port):
 
 def serve_video(sock):
 	serving = True
+
 	while serving:
 		client, addr = sock.accept()
 		print('[+] Connection accepted from %s:%d' % (addr[0], addr[1]))
 		if client:
 			# Start Streaming video
 			vid = cv2.VideoCapture(0)
+			vid.set(cv2.CAP_PROP_FRAME_WIDTH, 720)
+			vid.set(cv2.CAP_PROP_FRAME_HEIGHT, 680)
 			# serve the video feed to client 
 			while(vid.isOpened()):
 				im, frame = vid.read()
