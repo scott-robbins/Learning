@@ -16,4 +16,4 @@ This is a repository where I put various snippets of code, and various mini proj
 * ![Networking](https://github.com/scott-robbins/Learning/tree/main/Networking)
 * ![Python/C Combinations](https://github.com/scott-robbins/Learning/tree/main/PyC)
 * ![System](https://github.com/scott-robbins/Learning/tree/main/System)
-
+* ![Video](https://github.com/scott-robbins/Learning/tree/main/Video)
