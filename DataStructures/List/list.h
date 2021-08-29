@@ -9,7 +9,7 @@ typedef struct List{
 	unsigned int capacity;
 } List;
 
-extern List* createList(); 			/* Function for creating a list */
+extern List* create(); 			/* Function for creating a list */
 
 extern void* append(void* item, List* l);	/* Add item to list */
 
@@ -18,7 +18,5 @@ extern void* pop(int index, List* l);		/* pull item from list */
 extern void delete(int index, List* l);		/* remove item from list */
 
 int ismember(unsigned int size, unsigned int index);
-
-
 
 #endif

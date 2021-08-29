@@ -34,8 +34,7 @@ void* pop(int index, List* l){
 
 
 
-void delete(int index, List* l)
-{
+void delete(int index, List* l){
     if (!ismember(l->size, index))
         return;
     // remove 
