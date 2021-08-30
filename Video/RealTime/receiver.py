@@ -17,6 +17,7 @@ class Receiver():
 	def __init__(self, rmt_ip, rmt_port,record):
 		self.PORT = rmt_port
 		self.ENDPT = rmt_ip
+		self.backups = 0
 		self.running = True
 		if record:
 			self.set_recording()
@@ -34,6 +35,13 @@ class Receiver():
 	def cleanup_frames(self):
 		if os.path.isdir('frames'):
 			print('[-] Cleaning up old frames')
+			bkups = utils.cmd('ls *ImgBackups*.zip',False)
+			N = 0
+			for i in bkups:
+				n = int(i.split('.')[0].split('Backups')[1])
+				if n > N: N = n
+			bk = 'ImgBackups%d.zip' % (N + 1)
+			os.system('zip %s -r frames/ -9 >> /dev/null' % bk)
 			os.system('rm -rf frames')
 		os.mkdir('frames')
 
@@ -44,27 +52,34 @@ class Receiver():
 		s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 		s.connect((self.ENDPT, self.PORT))
 		prev_frame_time = 0
-		iteration = 0
+		iteration = 1
 		while self.running:
+			ld, lt = utils.create_timestamp()
 			try:
 				# Receive frame of video 
 				frame, data = self.acquire_frame(data, s)
 				# # Do image processing 
 				# # calculate frames/second
-				# new_frame_time = time.time()
-				# fps = 1/(new_frame_time-prev_frame_time)
-				# prev_frame_time = new_frame_time
+				new_frame_time = time.time()
+				fps = 1/(new_frame_time-prev_frame_time)
+				prev_frame_time = new_frame_time
 				# # putting the FPS count on the frame
-				# fps = 'FPS: '+str(int(fps))
-				# font = cv2.FONT_HERSHEY_SIMPLEX
+				fps = ld + ' ' + lt + ' ' +'FPS: '+str(int(fps))
+				font = cv2.FONT_HERSHEY_SIMPLEX
 				
 				if self.recording:	# save frame 
 					cv2.imwrite('frames/img%03d.jpeg' % iteration, frame)
 				# show frame
 				frame = cv2.resize(frame, [920, 720], interpolation = cv2.INTER_AREA)
-				# cv2.putText(frame, fps, (7, 70), font, 1, (255,0,0), 1, cv2.LINE_AA)
+				cv2.putText(frame, fps, (7, 25), font, 1, (0,25,255), 1, cv2.LINE_AA)
 				cv2.imshow('Live Feed', frame)
 				iteration += 1
+
+
+				if iteration >= 250 and iteration%100==0:
+					print('Backing up images %s %s' % (ld, lt))
+					self.backup_frames()
+					
 				# Allow user to end stream 
 				key = cv2.waitKey(1) & 0xFF
 				if key  == ord('q'):
@@ -75,6 +90,15 @@ class Receiver():
 		s.close()
 		self.kill_feed()
 
+	def backup_frames(self):
+		bkup = 'ImgBackups%d.zip' % self.backups
+		c1 = 'zip %s -r frames/ -9 >> /dev/null;' % bkup
+		c2 = 'rm -rf frames/'
+		os.system(c1+c2)
+		os.mkdir('frames')
+		self.backups += 1
+
+
 	def shutdown(self, s):
 		s.close()
 		print('[-] Ending Stream')
@@ -83,7 +107,6 @@ class Receiver():
 	def kill_feed(self):
 		c = f"pid=$(ssh pi@{self.ENDPT} ps aux | grep streamer.py | cut -d ' ' -f 9)\n"
 		c += f'ssh pi@{self.ENDPT} kill -9 $pid'
-		print(c)
 		return utils.cmd(c,False)
 
 	def start_feed(self):
