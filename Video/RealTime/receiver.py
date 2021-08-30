@@ -51,7 +51,7 @@ class Receiver():
 		data = b""
 		s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 		s.connect((self.ENDPT, self.PORT))
-		prev_frame_time = 0
+		prev_time = time.time()
 		iteration = 1
 		while self.running:
 			ld, lt = utils.create_timestamp()
@@ -60,9 +60,9 @@ class Receiver():
 				frame, data = self.acquire_frame(data, s)
 				# # Do image processing 
 				# # calculate frames/second
-				new_frame_time = time.time()
-				fps = 1/(new_frame_time-prev_frame_time)
-				prev_frame_time = new_frame_time
+				current_time = time.time()
+				fps = 1/(current_time-prev_time)
+				prev_time = current_time
 				# # putting the FPS count on the frame
 				fps = ld + ' ' + lt + ' ' +'FPS: '+str(int(fps))
 				font = cv2.FONT_HERSHEY_SIMPLEX
