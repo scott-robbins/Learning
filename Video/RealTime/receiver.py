@@ -23,7 +23,7 @@ class Receiver():
 			self.set_recording()
 			self.recording = record
 		self.kill_feed()
-		time.sleep(2)
+		time.sleep(4)
 		self.start_feed()
 		time.sleep(3)
 
@@ -53,6 +53,7 @@ class Receiver():
 		s.connect((self.ENDPT, self.PORT))
 		prev_time = time.time()
 		iteration = 1
+		backup_limit = 250
 		while self.running:
 			ld, lt = utils.create_timestamp()
 			try:
@@ -76,7 +77,7 @@ class Receiver():
 				iteration += 1
 
 
-				if iteration >= 250 and iteration%100==0:
+				if iteration >= backup_limit and iteration%backup_limit==0:
 					print('Backing up images %s %s' % (ld, lt))
 					self.backup_frames()
 					
@@ -105,8 +106,7 @@ class Receiver():
 		return
 
 	def kill_feed(self):
-		c = f"pid=$(ssh pi@{self.ENDPT} ps aux | grep streamer.py | cut -d ' ' -f 9)\n"
-		c += f'ssh pi@{self.ENDPT} kill -9 $pid'
+		c = f"ssh pi@{self.ENDPT} ./killstream.sh"
 		return utils.cmd(c,False)
 
 	def start_feed(self):
