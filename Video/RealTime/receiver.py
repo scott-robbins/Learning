@@ -1,4 +1,3 @@
-import scipy.ndimage as ndi
 import numpy as np
 import socket
 import pickle
@@ -19,13 +18,11 @@ class Receiver():
 		self.ENDPT = rmt_ip
 		self.backups = 0
 		self.running = True
-		if record:
-			self.set_recording()
-			self.recording = record
+		self.recording = record
 		self.kill_feed()
-		time.sleep(4)
+		self.cleanup_frames()
 		self.start_feed()
-		time.sleep(3)
+		time.sleep(5)
 
 	def set_recording(self):
 		print('[+] Recording Live Feed')
@@ -61,18 +58,12 @@ class Receiver():
 				frame, data = self.acquire_frame(data, s)
 				# # Do image processing 
 				# # calculate frames/second
-				current_time = time.time()
-				fps = 1/(current_time-prev_time)
-				prev_time = current_time
-				# # putting the FPS count on the frame
-				fps = ld + ' ' + lt + ' ' +'FPS: '+str(int(fps))
+				# current_time = time.time()
+				# fps = 1/(current_time-prev_time)
+				# prev_time = current_time
+				# # # putting the FPS count on the frame
+				stamp = ld + ' ' + lt #+ ' ' +'FPS: '+str(int(fps))
 				font = cv2.FONT_HERSHEY_SIMPLEX
-				
-				if self.recording:	# save frame 
-					cv2.imwrite('frames/img%03d.jpeg' % iteration, frame)
-				# show frame
-				frame = cv2.resize(frame, [920, 720], interpolation = cv2.INTER_AREA)
-				cv2.putText(frame, fps, (7, 25), font, 1, (0,25,255), 1, cv2.LINE_AA)
 				cv2.imshow('Live Feed', frame)
 				iteration += 1
 
@@ -111,7 +102,7 @@ class Receiver():
 
 	def start_feed(self):
 		print('[+] Starting Remote Feed')
-		c = f"ssh pi@{self.ENDPT} python3 streamer.py &\n"
+		c = f"ssh pi@{self.ENDPT} python3 /home/pi/streamer.py &\n"
 		return utils.cmd(c,False)		
 
 	def acquire_frame(self, data, sock):
@@ -139,13 +130,13 @@ class Receiver():
 		return frame, data
 
 def main():
-	ip = '192.168.1.164'
+	ip = '192.168.1.170'
 	rec = False
 	
 	if '-ip' in sys.argv:
-		addr = sys.argv[sys.argv.find('-ip'):].split(' ')[1]
+		addr = sys.argv[-1]
 
-	if '-record' in sys.argv:
+	if '--record' in sys.argv or '-r' in sys.argv:
 		rec = True	
 
 	viewer = Receiver(ip,8080, rec)
