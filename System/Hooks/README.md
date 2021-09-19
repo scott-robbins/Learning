@@ -30,3 +30,9 @@ By intercepting `strlen()` calls for example, I can wait to see the `Untitled Do
 Okay, kinda nifty but it's not really that interesting. What about modifying something that affects how the user can actual run the program? Could we hook a library and add a change to say... prevent a key phrase from bring written in gedit? **Yes we can :D**.
 
 ![firstrule](https://raw.githubusercontent.com/scott-robbins/Learning/main/System/Hooks/ruleone.gif)
+
+Thats pretty funny actually. But it definitely causes errors in the application, and it's not exactly subtle. Can we utilize this same small foothold into an application to say, completely change the user experience. For example, I like dark mode and light themes burn my eyeballs. Could I prevent the user from choosing  a light theme? **Turns out you can do that too :D**. 
+
+By intercepting the `strlen()` call and checking for any of the names of known light themes, we can replace the string in that buffer *with existing theme file names* and the light mode options simply do not appear in the options when we run gedit using LD_PRELOAD with our special library!
+
+![savetheretina](https://raw.githubusercontent.com/scott-robbins/Learning/main/System/Hooks/darkmode.gif)
