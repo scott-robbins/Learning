@@ -36,3 +36,8 @@ Thats pretty funny actually. But it definitely causes errors in the application,
 By intercepting the `strlen()` call and checking for any of the names of known light themes, we can replace the string in that buffer *with existing theme file names* and the light mode options simply do not appear in the options when we run gedit using LD_PRELOAD with our special library!
 
 ![savetheretina](https://raw.githubusercontent.com/scott-robbins/Learning/main/System/Hooks/darkmode.gif)
+
+
+It's not just gedit, the same trick can make the gnome-calculator much less reliable. Admittedly though, this has limited effect besides a few parlor tricks. To really change behavior of an application or probe it as it runs further, we'll probably have to get our hooks in deeper... But this was a fun start.
+
+![badmath](https://raw.githubusercontent.com/scott-robbins/Learning/main/System/Hooks/Applications/badcalc.gif)
