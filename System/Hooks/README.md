@@ -26,3 +26,7 @@ By intercepting `strlen()` calls for example, I can wait to see the `Untitled Do
 
 
 ![hooked](https://raw.githubusercontent.com/scott-robbins/Learning/main/System/hooked.gif)
+
+Okay, kinda nifty but it's not really that interesting. What about modifying something that affects how the user can actual run the program? Could we hook a library and add a change to say... prevent a key phrase from bring written in gedit? **Yes we can :D**.
+
+![firstrule](https://raw.githubusercontent.com/scott-robbins/Learning/main/System/Hooks/ruleone.gif)
