@@ -22,3 +22,7 @@ $ LD_PRELOAD=./hook.so ./login 0x53c2e7
 ```
 
 ## Running real applications
+By intercepting `strlen()` calls for example, I can wait to see the `Untitled Document 1` string to come through (for the window title) and change the pointer to reference and entirely different string!
+
+
+![hooked](https://raw.githubusercontent.com/scott-robbins/Learning/main/System/hooked.gif)
