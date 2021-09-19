@@ -1,7 +1,7 @@
 /**
- * GEDIT WIZ  
- * Can I hook functions essential to Gedit to actually affect the way it runs?
- * Maybe inserting or deleting words lol. 
+ * GTK WIZ  
+ * Can I hook functions essential to gnome applications and actually affect the way they run?
+ * Maybe inserting or deleting words in gedit lol. 
  * 												~ Scott Robbins 09/18/2021
  **/ 
 #define _GNU_SOURCE 
@@ -39,15 +39,18 @@ long unsigned int strlen(char *str){
     if( strstr(str, "fight club") != NULL)
         sprintf(str,"          ");
     
-    // prevent light mode lol
+    // prevent light mode in gedit lol
     if(strcmp(str,"kate.xml") == 0)
         sprintf(str,"tango.xml");
     if( strstr(str, "light.xml") != NULL)
         sprintf(str,"cobalt.xml");
-   return strlen_actual(str);
+
+    // For Messing with gnome-calculator
+    if(strcmp(str,"1+1")==0)
+        sprintf(str,"42");    
+    return strlen_actual(str);
 }
 
 
 /* gcc -Wall -fPIC -shared -ldl -Wl,--no-as-needed gwiz.c -o gwiz.so */
 /* run using: LD_PRELOAD=gwiz.so gedit */
-
