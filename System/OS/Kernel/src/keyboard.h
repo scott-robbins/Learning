@@ -2,6 +2,6 @@
 #define KEYBOARD_DOT_H 
 
 unsigned char get_scancode();
-void keyboard_handler();
+int keyboard_handler();
 
 #endif

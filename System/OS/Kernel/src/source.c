@@ -14,13 +14,14 @@ unsigned int vga_index;
 
 void clear_screen(void){
     int index = 0;
-    vga_index = 0;
+    vga_index =0;
     /* there are 25 lines each of 80 columns;
     each element takes 2 bytes */
     while (index < 80 * 25 * 2) {
         terminal_buffer[index] = ' ';
-        index += 2;
+        index += 1;
     }
+    vga_index = 80; // Set cursor back to just after welcome message
     return;
 }
 
@@ -39,6 +40,5 @@ void print_char(char str, unsigned char color){
     terminal_buffer[vga_index] = str | (unsigned short)color << 8;
     index++;
     vga_index++;
-    return;
 }
 
