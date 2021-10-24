@@ -33,7 +33,7 @@ qemu-system-x86_64 boot.bin
 
 But this is a pretty useless OS. We want to load in a kernel so we can tie together all of the components of the computer and also create and support basic functions for making use of the computer, the fundamental concept of what an *operating system* is!.
 
-I found a really clean example that I was able to wrap my head around over ![here](https://github.com/RockoonTechnologies/Kernel)
+I found a really clean example that I was able to wrap my head around over here from ![RockoonTecknologies](https://github.com/RockoonTechnologies/Kernel)
 <!-- ![alt](https://github.com/cirosantilli/x86-bare-metal-examples/tree/master/multiboot/osdev).  -->
 
 ## Example [Kernel/]
@@ -49,4 +49,4 @@ I Added a script for building this code and then tried to make some modification
 
 ### Resources 
 - [Boot Process](https://web.mit.edu/rhel-doc/4/RH-DOCS/rhel-rg-en-4/s1-boot-init-shutdown-process.html)
-- [OS Dev](![alt](https://github.com/cirosantilli/x86-bare-metal-examples/tree/master/multiboot/osdev))
+- ![OS Dev]((https://github.com/cirosantilli/x86-bare-metal-examples/tree/master/multiboot/osdev))
