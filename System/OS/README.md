@@ -19,8 +19,9 @@ apt-get install nasm xorriso mtools grub-pc-bin
 ```
 
 ## Basic BootSector
+You can read more about how the boot process works ![here](https://aly.arriqaaq.com/wos1/).
 
-[TODO: DEFINE A BOOTSECTOR]
+In our simple case we will basically display a message and sit in and infinite loop. Not very exciting but you have to start somewhere!
 
 Compile the bootsector assembly code into a binary using nasm as follows:
 ```bash
