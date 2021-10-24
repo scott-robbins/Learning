@@ -36,16 +36,30 @@ But this is a pretty useless OS. We want to load in a kernel so we can tie toget
 I found a really clean example that I was able to wrap my head around over here from ![RockoonTecknologies](https://github.com/RockoonTechnologies/Kernel)
 
 
+
 ## Example [Kernel/]
-Working with this, I'll see what I can learn, modify and build from for myself!
 
 Checking it out and building it, it's pretty neat! You actually choose the OS to boot into, and are greeted with the OS window. The console is... wonky. At least on my system it didnt really function. But this is a pretty great starting point I think becausee the fundamentals are there.
+
+Working with this, I'll see what I can learn, modify and build from for myself! As you can see above the initial code doesnt work great. The inital message prints, but subsequent keyboard input doesnt always register and prints somewhat randomly. 
+
+So I dug into the code to see if I could try and get this working more like a simple linux shell. 
 
 ### Booting The Code 
 I Added a script for building this code and then tried to make some modifications to customize it a bit. The way it's written uses globals that seem to get corrupted, so after you clear terminal for example some stray letters remain. It's definitely got some work to be done but it is definitely a super clean and easy to understand intro! Thanks to RockoonTechnologies for the neat example! 
 
+![initial](https://raw.githubusercontent.com/scott-robbins/Learning/main/System/OS/ByteClusOS_0.gif)
+It might not look like much buter this is a pretty big step forward from the single bootloader. Here, we get the skeleton of a multiple stage boot process. The computer will not only setup some memory for "programs" but it will handoff control to some higher level C code that can read keyboard input and display text. 
 
+## Improving the code
+I cleanup up the keyboard handling so far, and made the indexing for the keyboard buffer/current carriage row to be variables passed to functions instead of globals. 
 
+![progress](https://raw.githubusercontent.com/scott-robbins/Learning/main/System/OS/ByteClusOS_1.gif)
+
+As you can see this helped but still flawed. I tried to then remove some complexity in the keyboard handling. It's better because the keystroke input is appearing much quicker, but the indexing of the buffer containing letters only prints to one column of display now :(
+
+![better](https://raw.githubusercontent.com/scott-robbins/Learning/main/System/OS/ByteClusOS_2.gif)
+More Work is required, but fun so far!
 
 ### Resources 
 - [Boot Process](https://web.mit.edu/rhel-doc/4/RH-DOCS/rhel-rg-en-4/s1-boot-init-shutdown-process.html)
