@@ -49,7 +49,8 @@ So I dug into the code to see if I could try and get this working more like a si
 I Added a script for building this code and then tried to make some modifications to customize it a bit. The way it's written uses globals that seem to get corrupted, so after you clear terminal for example some stray letters remain. It's definitely got some work to be done but it is definitely a super clean and easy to understand intro! Thanks to RockoonTechnologies for the neat example! 
 
 ![initial](https://raw.githubusercontent.com/scott-robbins/Learning/main/System/OS/ByteClusOS_0.gif)
-It might not look like much buter this is a pretty big step forward from the single bootloader. Here, we get the skeleton of a multiple stage boot process. The computer will not only setup some memory for "programs" but it will handoff control to some higher level C code that can read keyboard input and display text. 
+
+It might not look like much, but this is a pretty big step forward from the single bootloader. Here, we get the skeleton of a multiple stage boot process. The computer will not only setup some memory for "programs" but it will handoff control to some higher level C code that can read keyboard input and display text. 
 
 ## Improving the code
 I cleanup up the keyboard handling so far, and made the indexing for the keyboard buffer/current carriage row to be variables passed to functions instead of globals. 
