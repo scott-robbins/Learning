@@ -9,12 +9,11 @@ section .text
 	global _start
 
 _start:
-    mov rdi, [rsp+16]           ; get commandline argument of filename
+    mov rdi, [rsp+16]  ; get commandline argument of filename
     mov rsi, 0102o     ; O_CREAT
     mov rdx, 0666o     ; mode
-    mov rax, 2
+    mov rax, 2         ; open file syscall
     syscall
 
-    ; exit
-    mov eax, 1
+    mov eax, 1          ; exit syscall
     int 0x80

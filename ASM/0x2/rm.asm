@@ -5,11 +5,10 @@ section .text
 	global _start
 
 _start:
-	; delete file name test.txt
-	mov rdi, [rsp+16]			; get commandline argument of filename
-	mov rax, 87					; unlink
-	syscall
+	mov rdi, [rsp+16]	; get commandline argument of filename
+	mov rax, 87			; unlink syscall
+	syscall				; call kernel
 
-	; exit
-	mov eax, 1
+	
+	mov eax, 1 			; exit syscall 
 	int 0x80
