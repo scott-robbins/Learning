@@ -11,6 +11,7 @@ Enjoy! :D
 * ![Basic Operations](https://github.com/scott-robbins/Learning/tree/main/Basics)
 * ![Bitwise Operations](https://github.com/scott-robbins/Learning/tree/main/Bitwise)
 * ![Data Structures](https://github.com/scott-robbins/Learning/tree/main/DataStructures)
+* ![Deep Learnng](https://github.com/scott-robbins/Learning/tree/main/DeepLearning)
 * ![File Formats](https://github.com/scott-robbins/Learning/tree/main/Formats)
 * ![Graphics](https://github.com/scott-robbins/Learning/tree/main/Graphics)
 * ![GUIs](https://github.com/scott-robbins/Learning/tree/main/GUIs)
