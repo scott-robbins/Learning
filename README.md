@@ -8,7 +8,7 @@ Enjoy! :D
 ## Topics
 * ![Assembly Language](https://github.com/scott-robbins/Learning/tree/main/ASM)
 * ![Audio](https://github.com/scott-robbins/Learning/tree/main/Audio)
-* ![Basic Operations](https://github.com/scott-robbins/Learning/tree/main/Basics)
+* ![Basic C Programming](https://github.com/scott-robbins/Learning/tree/main/C%20Programming/Basics) 
 * ![Bitwise Operations](https://github.com/scott-robbins/Learning/tree/main/Bitwise)
 * ![Data Structures](https://github.com/scott-robbins/Learning/tree/main/DataStructures)
 * ![Deep Learnng](https://github.com/scott-robbins/Learning/tree/main/DeepLearning)
