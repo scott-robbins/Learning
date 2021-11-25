@@ -1,0 +1,1 @@
+print(open(globals()['__file__'],'r').read()) # I think this is a quine?
