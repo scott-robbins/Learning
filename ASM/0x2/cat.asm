@@ -14,13 +14,13 @@ _start:
     mov     eax,  3         ; read(
     mov     ebx,  eax       ;   file_descriptor,
     mov     ecx,  buf       ;   *buf,
-    mov     edx,  bufsize   ;   *bufsize
+    mov     edx,  bufsize   ;   *bufsize)
     int     0x80            
 
     ; write to STDOUT
     mov     eax,  4         ; write(
     mov     ebx,  1         ;   STDOUT,
-    mov     ecx,  buf       ;   *buf
+    mov     ecx,  buf       ;   *buf)
     int     0x80            
 	
 	; exit 
