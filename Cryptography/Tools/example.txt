@@ -1,0 +1,5 @@
+		:: SECRET ::
+=============================================
+This is an example of a secret text file to
+be encrypted! A test text if you will.
+=============================================
