@@ -17,6 +17,7 @@ bool isIntPrime(int n){
 }
 
 int maxPrime(int N){
+	// return largest prime <= N
 	int largest_prime = 2;
 	int result = largest_prime;
 	if (isIntPrime(N))
@@ -30,8 +31,20 @@ int maxPrime(int N){
 }
 
 
+void showPrimes(int N){
+	// show all primes < N
+	int pcounter = 0;
+	while( pcounter < N){
+		if(isIntPrime(pcounter)){
+			printf("%d\n", pcounter);
+		}
+		pcounter++;
+	}
+}
+
+
 void main(int argc, char *argv[]){
-	if (argc > 1){
+	if (3 > argc > 1){
 		int num = atoi(argv[1]);
 		int largePrime = maxPrime(num);
 		if (largePrime > num){
@@ -39,8 +52,10 @@ void main(int argc, char *argv[]){
 		}else{
 			printf("%d is prime \n", largePrime);
 		}
+	}else if (argc == 3){
+		if(strcmp(argv[1], "under")==0){
+			showPrimes(atoi(argv[2]));
+		}
 	}
-	
-	
 
 }
