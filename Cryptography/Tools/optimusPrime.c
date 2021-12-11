@@ -44,7 +44,8 @@ void showPrimes(int N){
 
 
 void main(int argc, char *argv[]){
-	if (3 > argc > 1){
+
+	if ((3 > argc) && (argc > 1)){
 		int num = atoi(argv[1]);
 		int largePrime = maxPrime(num);
 		if (largePrime > num){
