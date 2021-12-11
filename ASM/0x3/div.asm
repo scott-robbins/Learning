@@ -12,9 +12,8 @@ main:
 	mov ecx, 42
 	div ecx
 
-	mov ecx, eax
-
 	; result is in rax
+	mov ecx, eax
 	push eax
 	push format
 	call printf
