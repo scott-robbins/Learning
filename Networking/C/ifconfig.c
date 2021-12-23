@@ -49,49 +49,49 @@ int main(int argc, char**argv){
 
 	// create socket 
 	sock = socket(AF_INET, SOCK_DGRAM, 0);
-    if (sock < 0)	return -1;
+	if (sock < 0)	return -1;
 
-    // Try to get information for nx interface at argv[1]
-    memset(&ethernet, 0, sizeof(struct ifreq));
-    memcpy(ethernet.ifr_name, argv[1], IFNAMSIZ - 1);
-    // if err < 0 the ioctl failed
-    if (ioctl(sock, SIOCGIFFLAGS, &ethernet)<0){
-    	printf("Cannot find interface %s\n",argv[1]);
-    	return 1;
-    }else{ printf("%s: flags=%hu <", argv[1],ethernet.ifr_flags); }  
+	// Try to get information for nx interface at argv[1]
+	memset(&ethernet, 0, sizeof(struct ifreq));
+	memcpy(ethernet.ifr_name, argv[1], IFNAMSIZ - 1);
+	// if err < 0 the ioctl failed
+	if (ioctl(sock, SIOCGIFFLAGS, &ethernet)<0){
+		printf("Cannot find interface %s\n",argv[1]);
+		return 1;
+	}else{ printf("%s: flags=%hu <", argv[1],ethernet.ifr_flags); }  
 	
 	int n_channels = 1;
-    // Check if interface is up/broadcasting/multicasting
-    if (ethernet.ifr_flags & IFF_UP) { printf(" UP"); n_channels++;}
+	// Check if interface is up/broadcasting/multicasting
+	if (ethernet.ifr_flags & IFF_UP) { printf(" UP"); n_channels++;}
 
-    if (ethernet.ifr_flags & IFF_BROADCAST) { printf(" BROADCAST"); n_channels++;}
+	if (ethernet.ifr_flags & IFF_BROADCAST) { printf(" BROADCAST"); n_channels++;}
 
-    if (ethernet.ifr_flags & IFF_UP) { printf(" MULTICAST"); n_channels++;}
-    printf("> ");
+	if (ethernet.ifr_flags & IFF_UP) { printf(" MULTICAST"); n_channels++;}
+	printf("> ");
 
-    // Show Maximum Transmission Unit
-    printf(" mtu %i\n", ethernet.ifr_mtu);
+	// Show Maximum Transmission Unit
+	printf(" mtu %i\n", ethernet.ifr_mtu);
 
-    // show inet address
-    /* I want IP address attached to "eth0" */
-    int fd;
- 	strncpy(ethernet.ifr_name, argv[1], IFNAMSIZ-1);
- 	ioctl(sock, SIOCGIFADDR, &ethernet);
+	// show inet address
+	/* I want IP address attached to "eth0" */
+	int fd;
+	strncpy(ethernet.ifr_name, argv[1], IFNAMSIZ-1);
+	ioctl(sock, SIOCGIFADDR, &ethernet);
 	char *ip = inet_ntoa(((struct sockaddr_in *)&ethernet.ifr_addr)->sin_addr);
 	printf("\tinet %s ", ip);
 
 	ioctl(sock, SIOCGIFNETMASK, &ethernet);
 	char *netmask = inet_ntoa(((struct sockaddr_in *)&ethernet.ifr_netmask)->sin_addr);
-    printf("\tnetmask %s", netmask);
+	printf("\tnetmask %s", netmask);
 
-    ioctl(sock, SIOCGIFDSTADDR, &ethernet);
-    char *dest = inet_ntoa(((struct sockaddr_in *)&ethernet.ifr_dstaddr)->sin_addr);
-    printf("\tdestination %s\n", dest);
+	ioctl(sock, SIOCGIFDSTADDR, &ethernet);
+	char *dest = inet_ntoa(((struct sockaddr_in *)&ethernet.ifr_dstaddr)->sin_addr);
+	printf("\tdestination %s\n", dest);
 
-    printf("\n");
-    // Close Socket 
-    close(sock);
+	printf("\n");
+	// Close Socket 
+	close(sock);
 
-    // Exit 
-    return 0;
+	// Exit 
+	return 0;
 }
