@@ -41,3 +41,9 @@ By intercepting the `strlen()` call and checking for any of the names of known l
 It's not just gedit, the same trick can make the gnome-calculator much less reliable. Admittedly though, this has limited effect besides a few parlor tricks. To really change behavior of an application or probe it as it runs further, we'll probably have to get our hooks in deeper... But this was a fun start.
 
 ![badmath](https://raw.githubusercontent.com/scott-robbins/Learning/main/System/Hooks/Applications/badcalc.gif)
+
+## Rootkits
+Another way people hook low level system operations is the "rootkit". I took a look at some of this code and tried to piece something together for myself. This small kernel module adds a "hidden" argument that will give a user root (demonstrated below). 
+
+![backdoor](https://raw.githubusercontent.com/scott-robbins/Learning/main/System/Hooks/godemode.gif)
+
