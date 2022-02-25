@@ -4,21 +4,6 @@
 #include <SDL2/SDL.h>
 #include <stdbool.h>
 
-// gcc cube.c -lSDL2 -O3 -o box
-
-
-
-typedef struct      s_pixel{
-	int             x;
-	int             y;
-}                   t_pixel;
-
-typedef struct cell{
-	int x;
-	int y;
-	int value;
-} t_cell;
-
 int fread_int(FILE* in);
 int fread_byte(FILE* in);
 void read_bmp_head(int* wptr, int* hptr, FILE* in);
@@ -105,7 +90,6 @@ void read_color(int* rptr, int* gptr, int* bptr, FILE* in) {
   *rptr = fread_byte(in);
 }
 
-
 void draw_image(SDL_Renderer *renderer, FILE*fp, int width, int height){
 	// read and write pixel data
 	for (int ycoord=height; ycoord >= 1; --ycoord) {
@@ -118,17 +102,12 @@ void draw_image(SDL_Renderer *renderer, FILE*fp, int width, int height){
     }
 }
 
-
-
-
 int main(int argc, char*argv[]){
 	// Create Window 
 	SDL_Event eve; 
 	SDL_Window *win;
 	SDL_Renderer *ren;
 
-	
-	
 	// Check args
 	if (argc > 1){
 		// try to load  in argument as image file
@@ -140,34 +119,27 @@ int main(int argc, char*argv[]){
 		int width;
 		int height;
 		read_bmp_head(&width, &height, fp);
-		#define WINDOW_WIDTH    width
-		#define WINDOW_HEIGHT   height
 		if(!(init_sdl(&win, &ren, width, height)))
 			return 1;
-		int counter = WINDOW_WIDTH;
 		printf("Image is [%d,%d]\n", width, height);
 		draw_image(ren, fp, width, height);
 		SDL_RenderPresent(ren);
 	}else{
-		#define WINDOW_WIDTH	600
-		#define WINDOW_HEIGHT	600
-		if(!(init_sdl(&win, &ren, WINDOW_WIDTH, WINDOW_HEIGHT)))
-			return 1;
-		SDL_RenderPresent(ren);
+		printf("[!] No .bmp image provided\n");
+		return 1;
 	}
 
 	// Let it run
 	while (42){
 		// Check for events
 		if (SDL_PollEvent(&eve)){
-			
 			// check if user is quitting
 			if (eve.type == SDL_QUIT)
 				break;
-
 		}
 	}
 
+	// Clean up 
 	SDL_DestroyRenderer(ren);
 	SDL_DestroyWindow(win);
 	SDL_Quit();
