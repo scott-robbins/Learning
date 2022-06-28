@@ -28,6 +28,3 @@ def decode(ciphertext):
 				N += len(chars)
 		result += lut[N]
 	return result
-
-if __name__ == '__main__':
-	print(decode('3PLorENEGvFGF5'))
