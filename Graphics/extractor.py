@@ -13,7 +13,7 @@ def extract_frames(video, save):
 	if ext == 'gif':
 		cmd = f'ffmpeg -v 0 -i {video} frames/out%d.png'
 	else:
-		cmd = f'ffmpeg -v 0 -i {video} -vf fps={rate} frames/out%d.png'
+		cmd = f'ffmpeg -v 0 -i {video} -vf fps=1 frames/out%d.png'
 	os.system(cmd)
 	# Load images 
 	print(f'[+] {video} converted to {len(os.listdir("frames/"))} images')
@@ -28,14 +28,11 @@ def extract_frames(video, save):
 def extract_alpha(frame):
 	dims = frame.shape
 	avg = frame.mean()
-	if avg > 0:
-		sigma = 1
-	else:
-		sigma = avg/10
-	rslope = ndi.gaussian_laplace(frame[:,:,0],sigma)
-	gslope = ndi.gaussian_laplace(frame[:,:,1],sigma)
-	bslope = ndi.gaussian_laplace(frame[:,:,2],sigma)
-	# Vectorized is faster B-)
+	sigma = avg/10
+	rslope = ndi.gaussian_laplace(np.diff(frame[:,:,0]),sigma)
+	gslope = ndi.gaussian_laplace(np.diff(frame[:,:,1]),sigma)
+	bslope = ndi.gaussian_laplace(np.diff(frame[:,:,2]),sigma)
+	# Vectorized is faster!
 	[rx,ry] = np.where(rslope == 0)
 	[gx,gy] = np.where(gslope == 0)
 	[bx,by] = np.where(bslope == 0)
